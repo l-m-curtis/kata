@@ -155,9 +155,6 @@ namespace Kata
 
            if (KVP.Key != null)
            {
-               //ElementFullName = $"{KVP.Value} ({KVP.Key})";
-               //Console.WriteLine($"Level: {Level} Word {word} Element {ElementFullName}");
-
                Id = Guid.NewGuid();
                Element = new Element(Level, PreviousLevelId, Id, KVP.Key);
                Elements.Add(Element);
@@ -177,9 +174,26 @@ namespace Kata
 
                if (KVP.Key != null)
                {
-                   //ElementFullName = $"{KVP.Value} ({KVP.Key})";
-                   //Console.WriteLine($"Level: {Level} Word {word} Element {ElementFullName}");
+                   Id = Guid.NewGuid();
+                   Element = new Element(Level, PreviousLevelId, Id, KVP.Key);
+                   Elements.Add(Element);
 
+                   if (SubWord.Length > 0)
+                   {
+                       CheckForElement(SubWord, Id, Level + 1, ref Elements);
+                   }
+               }
+           }
+
+           if (3 <= word.Length)
+           {
+               Symbol = word.Substring(0, 3);
+               SubWord = word.Substring(3);
+
+             KVP = ELEMENTS.FirstOrDefault((EL) => EL.Key.ToUpperInvariant() == Symbol.ToUpperInvariant());
+
+               if (KVP.Key != null)
+               {
                    Id = Guid.NewGuid();
                    Element = new Element(Level, PreviousLevelId, Id, KVP.Key);
                    Elements.Add(Element);
